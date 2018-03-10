@@ -61,36 +61,15 @@ class Entry {
   Entry(this.title);
   final String title;
 }
-
-final List<Entry> data = <Entry>[
-  new Entry('Entry 1'),
-  new Entry('Entry 2'),
-  new Entry('Entry 3'),
-  new Entry('Entry 4'),
-  new Entry('Entry 5'),
-  new Entry('Entry 6'),
-  new Entry('Entry 7'),
-  new Entry('Entry 8'),
-  new Entry('Entry 9'),
-  new Entry('Entry 10'),
-  new Entry('Entry 11'),
-  new Entry('Entry 12'),
-  new Entry('Entry 13'),
-  new Entry('Entry 14'),
-  new Entry('Entry 15'),
-  new Entry('Entry 16'),
-  new Entry('Entry 17'),
-  new Entry('Entry 18'),
-  new Entry('Entry 19'),
-  new Entry('Entry 20'),
-];
+final List<Entry> data  = new List<Entry>
+    .generate(100, (int index) => new Entry('Entry $index'));
 
 class EntryItem extends StatelessWidget {
   const EntryItem(this.entry);
 
   final Entry entry;
 
-  Widget _buildTiles(Entry root) {
+  Widget _buildTiles(Entry root, BuildContext context) {
     return new ListTile(
       key: new PageStorageKey<Entry>(root),
       title: new Text(root.title),
@@ -99,6 +78,6 @@ class EntryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _buildTiles(entry);
+    return _buildTiles(entry, context);
   }
 }
