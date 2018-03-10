@@ -58,11 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
 // One entry in the multilevel list displayed by this app.
 class Entry {
-  Entry(this.title);
+  Entry(this.title, this.index);
   final String title;
+  final String index;
 }
 final List<Entry> data  = new List<Entry>
-    .generate(100, (int index) => new Entry('Entry $index'));
+    .generate(100, (int index) => new Entry('Entry $index', '$index'));
 
 class EntryItem extends StatelessWidget {
   const EntryItem(this.entry);
@@ -74,6 +75,11 @@ class EntryItem extends StatelessWidget {
         child: new ListTile(
           key: new PageStorageKey<Entry>(root),
           title: new Text(root.title),
+          onTap: () {
+            Scaffold.of(context).showSnackBar(new SnackBar(
+              content: new Text("You tapped # ${root.index}"),
+            ));
+          },
         ),
         decoration:
         new BoxDecoration(
