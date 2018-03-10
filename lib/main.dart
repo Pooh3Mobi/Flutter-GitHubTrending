@@ -70,9 +70,19 @@ class EntryItem extends StatelessWidget {
   final Entry entry;
 
   Widget _buildTiles(Entry root, BuildContext context) {
-    return new ListTile(
-      key: new PageStorageKey<Entry>(root),
-      title: new Text(root.title),
+    return new Container(
+        child: new ListTile(
+          key: new PageStorageKey<Entry>(root),
+          title: new Text(root.title),
+        ),
+        decoration:
+        new BoxDecoration(
+            border: new Border(
+                bottom: new BorderSide(
+                  color: Colors.black12
+                )
+            )
+        )
     );
   }
 
