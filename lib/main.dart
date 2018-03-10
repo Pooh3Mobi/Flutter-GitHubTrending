@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: new Text(widget.title),
       ),
       body:  new ListView.builder(
-        itemBuilder: (BuildContext context, int index) => new EntryItem(data[index]),
+        itemBuilder: (BuildContext context, int index) => new EntryItem(data[index], index),
         itemCount: data.length,
       ),
     );
@@ -58,37 +58,43 @@ class _MyHomePageState extends State<MyHomePage> {
 
 // One entry in the multilevel list displayed by this app.
 class Entry {
-  Entry(this.title, this.index);
+  Entry(this.title);
   final String title;
-  final String index;
 }
 final List<Entry> data  = new List<Entry>
-    .generate(100, (int index) => new Entry('Entry $index', '$index'));
+    .generate(100, (int index) => new Entry('Entry $index'));
 
 class EntryItem extends StatelessWidget {
-  const EntryItem(this.entry);
+  const EntryItem(this.entry, this.position);
 
   final Entry entry;
+  final int position;
 
   Widget _buildTiles(Entry root, BuildContext context) {
     return new Container(
-        child: new ListTile(
-          key: new PageStorageKey<Entry>(root),
-          title: new Text(root.title),
-          onTap: () {
-            Scaffold.of(context).showSnackBar(new SnackBar(
-              content: new Text("You tapped # ${root.index}"),
-            ));
-          },
+      height: 100.0,
+      color: const Color(0x08000000),
+      padding: new EdgeInsets.fromLTRB(4.0, 2.0, 4.0, 2.0),
+        child: new Card(
+          color: Colors.white,
+          child: new ListTile(
+            leading: const Icon(Icons.account_circle),
+            key: new PageStorageKey<Entry>(root),
+            title: new Text(root.title),
+            subtitle: new Container(
+                padding: new EdgeInsets.fromLTRB(16.0, 16.0, 4.0, 18.0),
+                child: new Text("#$position")
+            ),
+            trailing: const Icon(Icons.arrow_forward_ios),
+
+            onTap: () {
+              Scaffold.of(context).showSnackBar(new SnackBar(
+                content: new Text("You tapped # $position"),
+              ));
+            },
+          ),
         ),
-        decoration:
-        new BoxDecoration(
-            border: new Border(
-                bottom: new BorderSide(
-                  color: Colors.black12
-                )
-            )
-        )
+
     );
   }
 
