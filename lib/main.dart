@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:feedparser/feedparser.dart';
-//import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:flutter/material.dart';
 
@@ -167,7 +167,7 @@ class EntryItem extends StatelessWidget {
           ),
           trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
-//              _launchURL(root.link);
+              _launchURL(root.link);
             Scaffold.of(context).showSnackBar(new SnackBar(
               content: new Text("You tapped # $position"),
             ));
@@ -182,11 +182,11 @@ class EntryItem extends StatelessWidget {
     return _buildTiles(entry, context);
   }
 
-//  _launchURL(String url) async {
-//    if (await canLaunch(url)) {
-//      await launch(url);
-//    } else {
-//      throw 'Could not launch $url';
-//    }
-//  }
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 }
